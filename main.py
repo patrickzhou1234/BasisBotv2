@@ -4,6 +4,9 @@ from discord.ext import commands
 TOKEN = 'token lol'
 
 bot = commands.Bot(command_prefix='!')
+cont = ""
+reactmsg = ""
+rolemsg = ""
 
 @bot.command()
 async def delete(ctx, arg):
@@ -25,19 +28,31 @@ async def reaction_roles(message):
         def check(m):
             return m.content and m.channel == message.channel and m.author == message.author
         msg = await bot.wait_for('message', check=check)
+        global cont
         cont = msg.content.split()
         embedVar2 = discord.Embed(title="Role", description=cont[0], color=0x00ff00)
         embedVar2.add_field(name="Emoji to add", value=cont[1], inline=False)
         embedVar2.add_field(name="Channel", value=cont[2], inline=False)
         await message.channel.send(embed=embedVar2)
+        global reactmsg
         reactmsg = await message.channel.send("Does this seem right?")
         await reactmsg.add_reaction("✅")
         await reactmsg.add_reaction("❌")
 
 @bot.event
 async def on_reaction_add(reaction, user):
-  if reaction.emoji == '✅' and user.id!=1009665998397390869:
-      await reaction.message.channel.send("ok")
+  if reaction.emoji == '✅' and user.id!=1009665998397390869 and reaction.message == reactmsg:
+      channel = bot.get_channel(int(cont[2][2:-1]))
+      global rolemsg
+      rolemsg = await channel.send("If you want the "+cont[0]+" role, please react with "+cont[1]+" to this message.")
+      await rolemsg.add_reaction(cont[1])
+      await reactmsg.remove_reaction("❌", reactmsg.author)
+  elif reaction.emoji == '❌' and user.id!=1009665998397390869 and reaction.message == reactmsg:
+      await reaction.message.channel.send("Ok, Cancelled")
+      await reactmsg.remove_reaction("✅", reactmsg.author)
+  elif reaction.emoji == cont[1] and user.id!=1009665998397390869 and reaction.message == rolemsg:
+      role = discord.utils.get(user.guild.roles, name=cont[0])
+      await user.add_roles(role)
 
 @bot.event
 async def on_message_delete(message):
