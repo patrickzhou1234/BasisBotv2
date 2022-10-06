@@ -9,6 +9,7 @@ reactmsg = ""
 rolemsg = ""
 
 @bot.command()
+@commands.has_permissions(administrator=True)
 async def delete(ctx, arg):
     limit = int(arg)
     await ctx.channel.purge(limit=limit)
@@ -53,18 +54,6 @@ async def on_reaction_add(reaction, user):
   elif reaction.emoji == cont[1] and user.id!=1009665998397390869 and reaction.message == rolemsg:
       role = discord.utils.get(user.guild.roles, name=cont[0])
       await user.add_roles(role)
-
-@bot.event
-async def on_message_delete(message):
-  await message.channel.send(str(message.author)+" deleted his message '"+message.content+"'")
-
-@bot.event
-async def on_message_edit(message_before, message_after):
-        author = message_before.author
-        guild = message_before.guild.name
-        channel = message_before.channel
-        if author.id!=270904126974590976 and author.id!=1009665998397390869:
-            await channel.send(f"""{author} edited his original message: '{message_before.content}' to an Edited Message: '{message_after.content}'""")
 
 @bot.event
 async def on_message(message):
