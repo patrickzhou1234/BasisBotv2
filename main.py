@@ -9,12 +9,6 @@ reactmsg = ""
 rolemsg = ""
 
 @bot.command()
-@commands.has_permissions(administrator=True)
-async def delete(ctx, arg):
-    limit = int(arg)
-    await ctx.channel.purge(limit=limit)
-
-@bot.command()
 async def nickname(ctx, member: discord.Member, nick):
     await member.edit(nick=nick)
 
@@ -65,5 +59,11 @@ async def on_message(message):
 @bot.event
 async def on_ready():
     await bot.change_presence(activity=discord.Activity(type=discord.ActivityType.watching, name="you when you're awake :("))
+    
+@bot.command()
+@commands.has_permissions(administrator=True)
+async def delete(ctx, arg):
+    limit = int(arg)
+    await ctx.channel.purge(limit=limit)
 
 bot.run(TOKEN)
