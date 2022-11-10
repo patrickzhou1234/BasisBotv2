@@ -1,5 +1,6 @@
 import discord
 from discord.ext import commands
+import time
 
 TOKEN = 'token lol'
 
@@ -33,6 +34,24 @@ async def reaction_roles(message):
         reactmsg = await message.channel.send("Does this seem right?")
         await reactmsg.add_reaction("✅")
         await reactmsg.add_reaction("❌")
+    else:
+        await message.channel.send("Lmao u thought")
+
+@bot.command(name="Do-My-Homework")
+async def doMyHomework(ctx):
+    await ctx.channel.send("Search it up on https://google.com lmao like r u dumb or stupid")
+
+@bot.command(name="spam-arunachalam")
+async def skillIssue(ctx):
+    arunachalam = bot.fetch_user(962870689784823839)
+    await ctx.channel.send("On it...")
+    try:
+        for i in range(25):
+            await arunachalam.send("I THINK theres an issue in ur skill!")
+            time.sleep(2)
+        await ctx.channel.send("SUCCESSFULLY SPAMMED ARUNACHALAM")
+    except:
+        await ctx.channel.send(":( I think he blocked me :cry:")
 
 @bot.event
 async def on_reaction_add(reaction, user):
