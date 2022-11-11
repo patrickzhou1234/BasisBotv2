@@ -51,7 +51,7 @@ async def skillIssue(ctx, member: discord.Member):
         for i in range(25):
             await dm.send("I THINK theres an issue in ur skill!")
             time.sleep(2)
-        await ctx.channel.send("SUCCESSFULLY SPAMMED "+member.id)
+        await ctx.channel.send("SUCCESSFULLY SPAMMED!")
     except Exception as e:
         await ctx.channel.send(":( I think he blocked me :cry:")
         raise e
