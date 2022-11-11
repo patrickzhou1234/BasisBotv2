@@ -43,7 +43,7 @@ async def doMyHomework(ctx):
 
 @bot.command(name="spam-arunachalam")
 async def skillIssue(ctx):
-    arunachalam = bot.fetch_user(962870689784823839)
+    arunachalam = bot.fetch_user(726151990228549705)
     await ctx.channel.send("On it...")
     try:
         for i in range(25):
