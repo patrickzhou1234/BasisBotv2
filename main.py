@@ -50,8 +50,9 @@ async def skillIssue(ctx):
             await arunachalam.send("I THINK theres an issue in ur skill!")
             time.sleep(2)
         await ctx.channel.send("SUCCESSFULLY SPAMMED ARUNACHALAM")
-    except:
+    except Exception as e:
         await ctx.channel.send(":( I think he blocked me :cry:")
+        raise e
 
 @bot.event
 async def on_reaction_add(reaction, user):
