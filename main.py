@@ -4,7 +4,8 @@ import time
 
 TOKEN = 'token lol'
 
-bot = commands.Bot(command_prefix='!')
+intents = discord.Intents().all()
+bot = commands.Bot(command_prefix='!', intents=intents)
 cont = ""
 reactmsg = ""
 rolemsg = ""
@@ -41,9 +42,10 @@ async def reaction_roles(message):
 async def doMyHomework(ctx):
     await ctx.channel.send("Search it up on https://google.com lmao like r u dumb or stupid")
 
-@bot.command(name="spam-arunachalam")
-async def skillIssue(ctx):
-    arunachalam = bot.fetch_user(726151990228549705)
+@bot.command(name="spam-user")
+async def skillIssue(ctx, member: discord.Member):
+    global arunachalam
+    arunachalam = bot.get_user(member.id)
     await ctx.channel.send("On it...")
     try:
         for i in range(25):
