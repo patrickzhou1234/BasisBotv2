@@ -43,17 +43,17 @@ async def doMyHomework(ctx):
     await ctx.channel.send("Search it up on https://google.com lmao like r u dumb or stupid")
 
 @bot.command(name="spam-user")
-async def skillIssue(ctx, member: discord.Member):
+async def skillIssue(ctx, member: discord.Member, *, message: str = "I THINK theres an issue in ur skill!"):
     global dm
     dm = bot.get_user(member.id)
     await ctx.channel.send("On it...")
     try:
         for i in range(25):
-            await dm.send("I THINK theres an issue in ur skill!")
+            await dm.send(message)
             time.sleep(2)
         await ctx.channel.send("SUCCESSFULLY SPAMMED!")
     except Exception as e:
-        await ctx.channel.send(":( I think he blocked me :cry:")
+        await ctx.channel.send(":( I think they blocked me :cry:")
         raise e
 
 @bot.event
